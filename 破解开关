@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cstdlib>
+#include <vector>
+
+
+int main(int argc,const char*argv[])
+{
+	int n;
+	scanf("%d", &n);
+	std::vector<int>arr(n);
+	std::vector<int>flag(n);
+	for (int i = 0; i < n; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	int pos = 0;
+	int cnt = 0;
+	int end = 0;
+	while (1)
+	{
+		if (end >= n)
+		{
+			break;
+		}
+		if (cnt > 2 * n)
+		{
+			printf("-1\n");
+			return 0;
+		}
+		if (arr[pos] == 0)
+		{
+			end = 0;
+			arr[pos] ^= 1;
+			arr[(pos + 1) % n] ^= 1;
+			arr[(pos + 2) % n] ^= 1;
+			flag[(pos + 1) % n] ^= 1;
+			cnt += 1;
+			printf("%d:\n", cnt);
+			for (int i = 0; i < n; i++)
+			{
+				printf("%d ", arr[i]);
+			}
+			printf("\n");
+		}
+		pos = (pos + 1) % n;
+		end++;
+	}
+	int res = 0;
+	for (int i = 0; i < n; i++)
+	{
+		res += flag[i];
+	}
+	printf("%d\n", res);
+	return 0;
+}
+
